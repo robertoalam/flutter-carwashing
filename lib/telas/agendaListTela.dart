@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/model/agendaModel.dart';
 import 'package:flutter_carwashing/model/agendaTruncadoModel.dart';
 
+import '../model/agendaTruncadoModel.dart';
+
 class agendaListTela extends StatefulWidget {
   @override
   _agendaListTelaState createState() => _agendaListTelaState();
 }
 
 class _agendaListTelaState extends State<agendaListTela> {
-  var agendaLista = new List<AgendaModel>();
-  var agendaLista2 = new List<String>();
+  var agendaLista3 = new List<AgendaTruncadoModel>();
 
   List<AgendaTruncadoModel> agendaTruncado = new List<AgendaTruncadoModel>();
 
@@ -24,18 +25,10 @@ class _agendaListTelaState extends State<agendaListTela> {
 
   _buscarAgenda() async {
     AgendaModel agenda = new AgendaModel(2,2,"teste","tse",1);
-    agendaLista2 = await agenda.buscarTruncado() ;
+    agendaLista3 = await agenda.buscarTruncado() ;
 
     setState(() {
-
-      for(int i = 0; i < agendaLista2.length ; i++){
-        Map<String,dynamic> user = agendaLista2[i];
-
-//        AgendaTruncadoModel agendaTruncado = new AgendaTruncadoModel(1,"beto","09/09/2020","15:00", "lavagem");
-//        print( agendaTruncado.toString() );
-      }
-//      print(agendaLista2);
-      //agendaLista2;
+      agendaLista3;
     });
   }
   
@@ -46,7 +39,7 @@ class _agendaListTelaState extends State<agendaListTela> {
           title: Text("Lista de Clientes"),
         ),
         body: ListView.builder(
-          itemCount: agendaLista.length,
+          itemCount: agendaLista3.length,
           itemBuilder: (BuildContext context, int index) {
             return _cardExibirConteudo(context, index);
           },
@@ -55,17 +48,35 @@ class _agendaListTelaState extends State<agendaListTela> {
   }
 
   _cardExibirConteudo(BuildContext context,int index){
-    if( agendaLista2.length != null ) {
+
       return Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-//            Text(agendaLista2[index].nome, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),),
-//            Text(agendaLista2[index].cliente.toString()),
-//            Text(agendaLista2[index].hora.toString()),
+            Row(
+              children: <Widget>[
+                Icon(Icons.person),
+                Text(agendaLista3[index].cliente, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Icon(Icons.calendar_today),
+                Text(agendaLista3[index].data),
+                Text(" - "),
+                Text(agendaLista3[index].hora),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Icon(Icons.star),
+                Text(agendaLista3[index].servico),
+              ],
+            )
+
           ],
         ),
       );
-    }
+
   }
 }

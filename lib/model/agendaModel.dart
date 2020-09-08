@@ -1,5 +1,9 @@
 import 'package:flutter_carwashing/helper/database.dart';
 
+import 'agendaTruncadoModel.dart';
+import 'agendaTruncadoModel.dart';
+import 'agendaTruncadoModel.dart';
+
 class AgendaModel {
   int id;
   int cliente;
@@ -40,7 +44,6 @@ class AgendaModel {
 
   Future<void> save(AgendaModel objeto) async {
     String sql = " INSERT INTO agenda (cliente, dt_servico, hr_servico , cd_servico) VALUES ('"+objeto.cliente.toString()+"','"+objeto.data+"','"+objeto.hora+"','"+objeto.servico.toString()+"') ";
-    print(sql);
     await dbHelper.executar(sql);
   }
 
@@ -65,9 +68,11 @@ class AgendaModel {
   buscarTruncado() async {
     String sql = " SELECT a.id,a.dt_servico,a.hr_servico,c.nome AS cliente,s.nome AS servico FROM agenda a LEFT JOIN cliente c ON a.cliente=c.id LEFT JOIN servico s ON a.cd_servico=s.id ";
     final linhas = await dbHelper.queryCustom(sql);
-    List<String> lista = new List<String>();
+//    List<String> lista = new List<String>();
+    List<AgendaTruncadoModel> lista = new List<AgendaTruncadoModel>();
     for(int i=0;i < linhas.length ; i++){
-      lista.add( linhas[i].toString() );
+      AgendaTruncadoModel agendaTruncadoModel = new AgendaTruncadoModel(linhas[i]['id'], linhas[i]['cliente'], linhas[i]['dt_servico'], linhas[i]['hr_servico'], linhas[i]['servico']) ;
+      lista.add( agendaTruncadoModel );
     }
     return lista;
   }
