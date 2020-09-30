@@ -18,19 +18,19 @@ class servicoListTela extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: ButtonTheme(
-                  minWidth: 200.0,
-                  height: 75.0,
-                  buttonColor: Colors.blue,
-                  child: RaisedButton(
-                    onPressed: () =>
-                        _navegarTela(context, clienteEditTela()),
-                    child: Text("Cadastro de Clientes"),
-                  ),
-                ),
-              ),
+//              Padding(
+//                padding: EdgeInsets.all(10.0),
+//                child: ButtonTheme(
+//                  minWidth: 200.0,
+//                  height: 75.0,
+//                  buttonColor: Colors.blue,
+//                  child: RaisedButton(
+//                    onPressed: () =>
+//                        _navegarTela(context, clienteEditTela()),
+//                    child: Text("Cadastro de Clientes"),
+//                  ),
+//                ),
+//              ),
               Padding(
                   padding: EdgeInsets.all(10.0),
                   child: ButtonTheme(

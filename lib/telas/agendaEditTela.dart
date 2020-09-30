@@ -34,7 +34,7 @@ class _agendaEditTelaState extends State<agendaEditTela> {
   }
 
   _buscarClientes() async {
-    ClienteModel cliente = new ClienteModel(1,"teste","teste");
+    ClienteModel cliente = new ClienteModel();
     _clientesTeste = await cliente.buscar();
     setState(() {
       _dropDownMenuItemsClientes = getDropDownMenuItemsClientes(_clientesTeste);

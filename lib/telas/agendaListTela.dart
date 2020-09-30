@@ -35,6 +35,7 @@ class _agendaListTelaState extends State<agendaListTela> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
           title: Text("Lista de Clientes"),
         ),

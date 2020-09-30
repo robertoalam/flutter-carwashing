@@ -38,7 +38,7 @@ class DatabaseHelper {
 
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
-    await db.execute(''' CREATE TABLE IF NOT EXISTS cliente ( id INTEGER PRIMARY KEY, nome TEXT NOT NULL, telefone TEXT NOT NULL ); ''');
+    await db.execute(''' CREATE TABLE IF NOT EXISTS cliente ( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, telefone TEXT NOT NULL ); ''');
     await db.execute(''' CREATE TABLE IF NOT EXISTS servico ( id INTEGER PRIMARY KEY, nome TEXT NOT NULL); ''');
     await db.execute(''' CREATE TABLE IF NOT EXISTS agenda (id INTEGER PRIMARY KEY, cliente INT NOT NULL, dt_servico VARCHAR(10) NOT NULL , hr_servico VARCHAR(5) NOT NULL , cd_servico INT NOT NULL , dt_create TEXT DEFAULT CURRENT_TIMESTAMP); ''');
     popularTabelaCliente(db);
