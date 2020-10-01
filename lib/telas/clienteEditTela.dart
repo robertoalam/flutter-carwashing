@@ -12,12 +12,13 @@ class clienteEditTela extends StatefulWidget {
 }
 
 class _clienteEditTelaState extends State<clienteEditTela> {
+
   final _clienteId = TextEditingController();
   final _clienteNome = TextEditingController();
   final _clienteTelefone = TextEditingController();
   // snackbar
   final key = GlobalKey<ScaffoldState>();
-
+  ClienteModel _cliente;
   @override
   void initState() {
     // SE VIAR UM OBJETO PARA ESSA TELA, CARREGAR DADOS NOS CONTROLLERS
@@ -72,15 +73,15 @@ class _clienteEditTelaState extends State<clienteEditTela> {
               buttonColor: Colors.blue,
               child: RaisedButton(
                 onPressed: () => {
-                  _salvar(),
-                  Navigator.pop(context, MaterialPageRoute( builder: (context) => clienteListTela() ) ),
+                  //_salvar(),
+                  Navigator.pop(context,"foo" ),
                 },
                 child: Text("SALVAR"),
               ),
             ),
           ),
         ],
-    ),
+      ),
     );
   }
 
@@ -91,13 +92,13 @@ class _clienteEditTelaState extends State<clienteEditTela> {
       );
     }else{
         _clienteId.text = (_clienteId.text.toString().isNotEmpty ) ? _clienteId.text.toString() : "0" ;
-        ClienteModel objeto;
-        if( _clienteId.text.isNotEmpty ){
-          objeto = new ClienteModel( nome: _clienteNome.text.toString() , telefone: _clienteTelefone.text.toString() );
+
+        if( _clienteId.text.toString() == "0" ){
+          _cliente = new ClienteModel( nome: _clienteNome.text.toString() , telefone: _clienteTelefone.text.toString() );
         }else{
-          objeto = new ClienteModel(id: int.parse( _clienteId.text.toString() ) , nome: _clienteNome.text.toString() , telefone: _clienteTelefone.text.toString() );
+          _cliente = new ClienteModel(id: int.parse( _clienteId.text.toString() ) , nome: _clienteNome.text.toString() , telefone: _clienteTelefone.text.toString() );
         }
-        objeto.salvar();
+        _cliente.salvar();
     }
   }
 

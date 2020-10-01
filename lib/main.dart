@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_carwashing/telas/servicoListTela.dart';
 import 'package:flutter_carwashing/telas/splashTela.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -11,7 +12,8 @@ void main() {
         ],
         supportedLocales: [const Locale('pt', 'BR')],
         debugShowCheckedModeBanner: false,
-        home:splashTela(),
+          //home:splashTela(),
+          home:servicoListTela(),
     )
   );
 }

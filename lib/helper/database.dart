@@ -46,11 +46,11 @@ class DatabaseHelper {
   }
 
   popularTabelaCliente(db){
-    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('beto','12345');  ''');
-    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Tonia Laura','57663'); ''');
-    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Luisa','1029384'); ''');
+    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Joao','12345');  ''');
+    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Maria Laura','57663'); ''');
+    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Antonio','1029384'); ''');
     db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('José','1029384'); ''');
-    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Valdir','1029384'); ''');
+    db.execute(''' INSERT INTO cliente (nome,telefone) VALUES ('Valdir','435345'); ''');
     return 1;
   }
 

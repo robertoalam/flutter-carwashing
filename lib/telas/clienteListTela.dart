@@ -10,9 +10,11 @@ class clienteListTela extends StatefulWidget {
 }
 
 class _clienteListTelaState extends State<clienteListTela> {
+
   final dbHelper = DatabaseHelper.instance;
-  var _clientes = new List<ClienteModel>();
+  List<ClienteModel> _clientes = new List<ClienteModel>();
   ClienteModel cliente = new ClienteModel();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -21,8 +23,7 @@ class _clienteListTelaState extends State<clienteListTela> {
     print('ENTROU INIT STATE');
   }
 
-  _getClientes() async {
-
+  void _getClientes() async {
     _clientes = await cliente.buscar() ;
     setState(() {
       _clientes;
@@ -49,36 +50,57 @@ class _clienteListTelaState extends State<clienteListTela> {
   }
 
   _cardCliente(BuildContext context , int index){
-    return
-    Card(
-      child: Row(
-        children: [
-          Container(
-            child: GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute( builder: (context) => clienteEditTela(cliente: _clientes[index] ) ) ),
-              child: Column(
-                children: [
-                Text(_clientes[index].nome,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
-                  Text(_clientes[index].telefone),
-                ],
-              ),
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Column(
+              children: [
+                Container(
+                  child: GestureDetector(
+                    onTap: () => { _deletar( index ), },
+                    child: Icon(Icons.delete,size: 36,),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            child: GestureDetector(
-              onTap: () => {
-                _deletar( index ),
-              },
-              child: Column(
-                children: [
-                  Icon(Icons.delete),
-                ],
-              ),
+            Column(
+              children: [
+                Container(
+                  child: GestureDetector(
+                    onTap: () => _editCliente(cliente:  _clientes[index]),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(_clientes[index].id.toString()),
+                              Text(" - "),
+                              Text(_clientes[index].nome ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
+                            ],
+                          ),
+                          Text(_clientes[index].telefone.toString()),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  _editCliente({ClienteModel cliente}) async {
+    final retorno = await Navigator.push(context, MaterialPageRoute(builder: (context) => clienteEditTela(cliente: cliente ) ) );
+    print(retorno);
+    if(retorno != null){
+      _getClientes();
+    }
   }
 
   _deletar( index ) {

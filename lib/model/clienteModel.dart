@@ -13,9 +13,10 @@ class ClienteModel {
 //      : id = json['id'],
 //        nome = json['nome'],
 //        telefone = json['telefone'];
-//  factory ClienteModel.fromJson(Map<String, dynamic> json) {
-//    return ClienteModel(int json['id'], String json['nome'],String json['telefone'] );
-//  }
+
+  factory ClienteModel.fromJson(Map<String, dynamic> json) {
+    return ClienteModel(id: json['id'] , nome: json['nome'], telefone: ['telefone'].toString() );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -29,8 +30,6 @@ class ClienteModel {
   }
 
   Future<void> insert() async {
-    // Get a reference to the database.
-//    objeto.id = 0;
     this.id = null ;
     await dbHelper.insert('cliente', this.toMap()  );
   }
@@ -62,15 +61,13 @@ class ClienteModel {
   }
 
   salvar(){
-
     // INSERT
     if(this.id.toString().isEmpty || this.id == 0){
-      print('ENTROU 1');
-       this.insert();
+      this.insert();
     // UPDATE
     }else{
-      print('ENTROU 2');
       this.udpate();
     }
+    return true;
   }
 }
