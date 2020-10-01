@@ -66,7 +66,7 @@ class AgendaModel {
   }
 
   buscarTruncado() async {
-    String sql = " SELECT a.id,a.dt_servico,a.hr_servico,c.nome AS cliente,s.nome AS servico FROM agenda a LEFT JOIN cliente c ON a.cliente=c.id LEFT JOIN servico s ON a.cd_servico=s.id ";
+    String sql = " SELECT a.id,a.dt_servico,a.hr_servico,c.nome AS cliente,s.nome AS servico FROM agenda a LEFT JOIN cliente c ON a.cliente=c._id LEFT JOIN servico s ON a.cd_servico=s.id ";
     final linhas = await dbHelper.queryCustom(sql);
 //    List<String> lista = new List<String>();
     List<AgendaTruncadoModel> lista = new List<AgendaTruncadoModel>();

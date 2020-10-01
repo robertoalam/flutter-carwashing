@@ -35,9 +35,12 @@ class _agendaListTelaState extends State<agendaListTela> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
-          title: Text("Lista de Clientes"),
+          title: Text("Lista de Serviços"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          child: Icon(Icons.add),
         ),
         body: ListView.builder(
           itemCount: agendaLista3.length,
@@ -49,7 +52,6 @@ class _agendaListTelaState extends State<agendaListTela> {
   }
 
   _cardExibirConteudo(BuildContext context,int index){
-
       return Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -73,8 +75,7 @@ class _agendaListTelaState extends State<agendaListTela> {
                 Icon(Icons.star),
                 Text(agendaLista3[index].servico),
               ],
-            )
-
+            ),
           ],
         ),
       );
