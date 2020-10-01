@@ -18,6 +18,12 @@ class ClienteModel {
     return ClienteModel(id: json['id'] , nome: json['nome'], telefone: ['telefone'].toString() );
   }
 
+  ClienteModel.fromMap(Map map){
+    id = map['_id'];
+    nome = map['nome'];
+    telefone = map['telefone'];
+  }
+
   Map<String, dynamic> toMap() {
     return {
       '_id': id,

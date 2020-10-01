@@ -35,7 +35,7 @@ class _clienteListTelaState extends State<clienteListTela> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: ()=> Navigator.push(context, MaterialPageRoute( builder: (context) => clienteEditTela() ) ),
+        onPressed: ()=> _editCliente(),
       ),
       appBar: AppBar(
         title: Text("Lista de Clientes"),
@@ -97,7 +97,6 @@ class _clienteListTelaState extends State<clienteListTela> {
 
   _editCliente({ClienteModel cliente}) async {
     final retorno = await Navigator.push(context, MaterialPageRoute(builder: (context) => clienteEditTela(cliente: cliente ) ) );
-    print(retorno);
     if(retorno != null){
       _getClientes();
     }

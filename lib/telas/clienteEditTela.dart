@@ -18,7 +18,7 @@ class _clienteEditTelaState extends State<clienteEditTela> {
   final _clienteTelefone = TextEditingController();
   // snackbar
   final key = GlobalKey<ScaffoldState>();
-  ClienteModel _cliente;
+  ClienteModel _cliente = ClienteModel();
   @override
   void initState() {
     // SE VIAR UM OBJETO PARA ESSA TELA, CARREGAR DADOS NOS CONTROLLERS
@@ -39,7 +39,7 @@ class _clienteEditTelaState extends State<clienteEditTela> {
     return Scaffold(
       key: key,
       appBar: AppBar(
-        title: Text("Cadastro de Cliente"),
+        title: Text(_clienteNome.text.isNotEmpty  ? _clienteNome.text.toString() : "Novo CLIENTE"),
       ),body: ListView(
         children: [
           Padding(
@@ -73,8 +73,9 @@ class _clienteEditTelaState extends State<clienteEditTela> {
               buttonColor: Colors.blue,
               child: RaisedButton(
                 onPressed: () => {
-                  //_salvar(),
-                  Navigator.pop(context,"foo" ),
+                  _salvar(),
+                  Navigator.pop(context, _cliente),
+                  //Navigator.of(context).pop(_cliente),
                 },
                 child: Text("SALVAR"),
               ),
