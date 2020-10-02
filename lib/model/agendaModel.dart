@@ -13,16 +13,10 @@ class AgendaModel {
 
   final dbHelper = DatabaseHelper.instance;
 
-  AgendaModel(int id, int cliente , String data ,String hora, int servico) {
-    this.id = id;
-    this.cliente = cliente;
-    this.data = data;
-    this.hora = hora;
-    this.servico = servico;
-  }
+  AgendaModel({ this.id , this.cliente , this.data , this.hora , this.servico  }) ;
 
   factory AgendaModel.fromJson(Map<String, dynamic> json) {
-    return AgendaModel( json['id'],json['cliente'],json['data'] ,json['hora'] ,json['servico']);
+    return AgendaModel( id:  json['id'], cliente: json['cliente'], data: json['data'] , hora: json['hora'] , servico: json['servico'] );
   }
 
   Map<String, dynamic> toMap() {
@@ -59,14 +53,14 @@ class AgendaModel {
 //    allRows.forEach( (row) => print( row ) );
     for(int i=0;i< linhas.length ; i++){
       print(linhas[i]['data']);
-      AgendaModel agenda = AgendaModel(linhas[i]['id'],linhas[i]['cliente'],linhas[i]['data'],linhas[i]['hora'],linhas[i]['servico']);
+      AgendaModel agenda = AgendaModel(id: linhas[i]['id'], cliente: linhas[i]['cliente'], data : linhas[i]['data'], hora: linhas[i]['hora'], servico: linhas[i]['servico']);
       lista.add(agenda);
     }
     return lista;
   }
 
   buscarTruncado() async {
-    String sql = " SELECT a.id,a.dt_servico,a.hr_servico,c.nome AS cliente,s.nome AS servico FROM agenda a LEFT JOIN cliente c ON a.cliente=c._id LEFT JOIN servico s ON a.cd_servico=s.id ";
+    String sql = " SELECT a.id,a.dt_servico,a.hr_servico,c.nome AS cliente,s.nome AS servico FROM agenda a LEFT JOIN cliente c ON a.cliente=c._id LEFT JOIN servico s ON a.cd_servico=s._id ";
     final linhas = await dbHelper.queryCustom(sql);
 //    List<String> lista = new List<String>();
     List<AgendaTruncadoModel> lista = new List<AgendaTruncadoModel>();

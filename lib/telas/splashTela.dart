@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/helper/database.dart';
-import 'package:flutter_carwashing/telas/servicoListTela.dart';
+import 'package:flutter_carwashing/telas/homeTela.dart';
+import 'package:flutter_carwashing/telas/servico/servicoListTela.dart';
 
 class splashTela extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _splashTelaState extends State<splashTela> {
     super.initState();
     _init();
     Timer( Duration(seconds: 1) , ()=>
-        Navigator.pushReplacement( context,  MaterialPageRoute( builder: (context) => servicoListTela() ) ),
+        Navigator.pushReplacement( context,  MaterialPageRoute( builder: (context) => homeTela() ) ),
     );
   }
 

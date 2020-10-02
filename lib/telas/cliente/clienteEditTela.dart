@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/model/clienteModel.dart';
-import 'package:flutter_carwashing/telas/clienteListTela.dart';
 
 class clienteEditTela extends StatefulWidget {
 
@@ -19,6 +18,7 @@ class _clienteEditTelaState extends State<clienteEditTela> {
   // snackbar
   final key = GlobalKey<ScaffoldState>();
   ClienteModel _cliente = ClienteModel();
+
   @override
   void initState() {
     // SE VIAR UM OBJETO PARA ESSA TELA, CARREGAR DADOS NOS CONTROLLERS
@@ -40,7 +40,8 @@ class _clienteEditTelaState extends State<clienteEditTela> {
       key: key,
       appBar: AppBar(
         title: Text(_clienteNome.text.isNotEmpty  ? _clienteNome.text.toString() : "Novo CLIENTE"),
-      ),body: ListView(
+      ),
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.all(10),

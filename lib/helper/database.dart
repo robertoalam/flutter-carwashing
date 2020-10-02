@@ -39,8 +39,8 @@ class DatabaseHelper {
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute(''' CREATE TABLE IF NOT EXISTS cliente ( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, telefone TEXT NOT NULL ); ''');
-    await db.execute(''' CREATE TABLE IF NOT EXISTS servico ( id INTEGER PRIMARY KEY, nome TEXT NOT NULL); ''');
-    await db.execute(''' CREATE TABLE IF NOT EXISTS agenda (id INTEGER PRIMARY KEY, cliente INT NOT NULL, dt_servico VARCHAR(10) NOT NULL , hr_servico VARCHAR(5) NOT NULL , cd_servico INT NOT NULL , dt_create TEXT DEFAULT CURRENT_TIMESTAMP); ''');
+    await db.execute(''' CREATE TABLE IF NOT EXISTS servico ( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL); ''');
+    await db.execute(''' CREATE TABLE IF NOT EXISTS agenda ( _id INTEGER PRIMARY KEY AUTOINCREMENT, cliente INT NOT NULL, dt_servico VARCHAR(10) NOT NULL , hr_servico VARCHAR(5) NOT NULL , cd_servico INT NOT NULL , dt_create TEXT DEFAULT CURRENT_TIMESTAMP); ''');
     popularTabelaCliente(db);
     popularTabelaServico(db);
   }
@@ -99,16 +99,16 @@ class DatabaseHelper {
 
   // We are assuming here that the id column in the map is set. The other
   // column values will be used to update the row.
-  Future<int> update(Map<String, dynamic> row) async {
+  Future<int> update(tabela , Map<String, dynamic> row) async {
     Database db = await instance.database;
     int id = row[columnId];
-    return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
+    return await db.update(tabela, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
-  Future<int> delete(int id) async {
+  Future<int> delete(tabela,int id) async {
     Database db = await instance.database;
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    return await db.delete(tabela, where: '$columnId = ?', whereArgs: [id]);
   }
 }

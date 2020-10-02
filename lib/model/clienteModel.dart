@@ -6,13 +6,9 @@ class ClienteModel {
   String telefone;
 
   final dbHelper = DatabaseHelper.instance;
+  final String tabela = "cliente";
 
   ClienteModel({this.id = 0, this.nome , this.telefone});
-
-//  ClienteModel.fromJson(Map json)
-//      : id = json['id'],
-//        nome = json['nome'],
-//        telefone = json['telefone'];
 
   factory ClienteModel.fromJson(Map<String, dynamic> json) {
     return ClienteModel(id: json['id'] , nome: json['nome'], telefone: ['telefone'].toString() );
@@ -37,28 +33,27 @@ class ClienteModel {
 
   Future<void> insert() async {
     this.id = null ;
-    await dbHelper.insert('cliente', this.toMap()  );
+    await dbHelper.insert( tabela , this.toMap()  );
   }
 
   Future udpate() async {
     var map = this.toMap();
-    return await dbHelper.update(map);
+    return await dbHelper.update( tabela , map);
   }
 
   Future delete(int id) async {
-    return await dbHelper.delete(id);
+    return await dbHelper.delete( tabela ,id);
   }
 
   query() async {
-    final allRows = await dbHelper.queryAllRows('cliente');
+    final allRows = await dbHelper.queryAllRows( tabela );
     print('query all rows:');
     allRows.forEach((row) => print(row));
   }
 
   buscar() async {
-    final linhas = await dbHelper.queryAllRows('cliente');
+    final linhas = await dbHelper.queryAllRows( tabela );
     List<ClienteModel> lista = List<ClienteModel>();
-//    allRows.forEach( (row) => print( row ) );
     for(int i=0;i< linhas.length ; i++){
       ClienteModel cliente = ClienteModel(id: linhas[i]['_id'], nome: linhas[i]['nome'], telefone: linhas[i]['telefone']);
       lista.add(cliente);

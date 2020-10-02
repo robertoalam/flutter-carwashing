@@ -1,55 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/helper/database.dart';
-import 'package:flutter_carwashing/model/clienteModel.dart';
-import 'package:flutter_carwashing/telas/clienteEditTela.dart';
+import 'package:flutter_carwashing/model/servicoModel.dart';
+import 'package:flutter_carwashing/telas/servico/servicoEditTela.dart';
 
-class clienteListTela extends StatefulWidget {
 
+class servicoListTela extends StatefulWidget {
   @override
-  _clienteListTelaState createState() => _clienteListTelaState();
+  _servicoListTelaState createState() => _servicoListTelaState();
 }
 
-class _clienteListTelaState extends State<clienteListTela> {
-
+class _servicoListTelaState extends State<servicoListTela> {
   final dbHelper = DatabaseHelper.instance;
-  List<ClienteModel> _clientes = new List<ClienteModel>();
-  ClienteModel cliente = new ClienteModel();
+  List<ServicoModel> _listagem = new List<ServicoModel>();
+  ServicoModel _servico = new ServicoModel();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getClientes();
-    print('ENTROU INIT STATE');
+    _getBuscarLista();
   }
 
-  void _getClientes() async {
-    _clientes = await cliente.buscar() ;
+  void _getBuscarLista() async {
+    _listagem = await _servico.buscar() ;
     setState(() {
-      _clientes;
+      _listagem;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        onPressed: ()=> _editarObjeto(),
         child: Icon(Icons.add),
-        onPressed: ()=> _editCliente(),
       ),
       appBar: AppBar(
-        title: Text("Lista de Clientes"),
+        title: Text("Lista de Serviços"),
       ),
-        body: ListView.builder(
-        itemCount: _clientes.length,
+      body: ListView.builder(
+        itemCount: _listagem.length,
         itemBuilder: (BuildContext context, int index) {
-          return _cardCliente(context, index);
+          return _cardObjeto(context, index);
         },
       )
     );
   }
 
-  _cardCliente(BuildContext context , int index){
+  _cardObjeto(BuildContext context , int index){
     return Card(
       child: Padding(
         padding: EdgeInsets.all(10),
@@ -69,19 +67,18 @@ class _clienteListTelaState extends State<clienteListTela> {
               children: [
                 Container(
                   child: GestureDetector(
-                    onTap: () => _editCliente(cliente:  _clientes[index]),
+                    onTap: () => _editarObjeto(servico:  _listagem[index]),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
                         children: [
                           Row(
                             children: [
-                              Text(_clientes[index].id.toString()),
+                              Text(_listagem[index].id.toString()),
                               Text(" - "),
-                              Text(_clientes[index].nome ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
+                              Text(_listagem[index].nome ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
                             ],
                           ),
-                          Text(_clientes[index].telefone.toString()),
                         ],
                       ),
                     ),
@@ -95,18 +92,18 @@ class _clienteListTelaState extends State<clienteListTela> {
     );
   }
 
-  _editCliente({ClienteModel cliente}) async {
-    final retorno = await Navigator.push(context, MaterialPageRoute(builder: (context) => clienteEditTela(cliente: cliente ) ) );
+  _editarObjeto({ServicoModel servico}) async {
+    final retorno = await Navigator.push(context, MaterialPageRoute(builder: (context) => servicoEditTela(servico: servico ) ) );
     if(retorno != null){
-      _getClientes();
+      _getBuscarLista();
     }
   }
 
   _deletar( index ) {
-    _clientes[index].delete(  _clientes[index].id );
-    _clientes.removeAt(index);
+    _listagem[index].delete(  _listagem[index].id );
+    _listagem.removeAt(index);
     setState(() {
-      _clientes;
+      _listagem;
     });
   }
 }

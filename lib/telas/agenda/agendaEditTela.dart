@@ -7,6 +7,10 @@ import 'package:intl/intl.dart';
 import 'dart:core';
 
 class agendaEditTela extends StatefulWidget {
+
+  final AgendaModel agenda;
+  agendaEditTela({this.agenda});
+
   @override
   _agendaEditTelaState createState() => _agendaEditTelaState();
 }
@@ -42,7 +46,7 @@ class _agendaEditTelaState extends State<agendaEditTela> {
   }
 
   _buscarServicos() async {
-    ServicoModel servico = new ServicoModel(1, "teste");
+    ServicoModel servico = new ServicoModel();
     _servicosTeste = await servico.buscar();
     setState(() {
       _servicosTeste;
@@ -156,14 +160,14 @@ class _agendaEditTelaState extends State<agendaEditTela> {
     print( _horarioSelecionado );
 
     print( _servicoSelecionado );
-    AgendaModel objeto = new AgendaModel(
-        1,
-        int.parse(_clienteSelecionado),
-        _agendaDataController.text ,
-        _horarioSelecionado,
-        _servicoSelecionado
-    );
-    objeto.save(objeto);
+    // AgendaModel objeto = new AgendaModel(
+    //     1,
+    //     int.parse(_clienteSelecionado),
+    //     _agendaDataController.text ,
+    //     _horarioSelecionado,
+    //     _servicoSelecionado
+    // );
+    // objeto.save(objeto);
   }
 
   void _clienteOnChanged(String selecionado) {

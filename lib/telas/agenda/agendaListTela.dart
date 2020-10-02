@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/model/agendaModel.dart';
 import 'package:flutter_carwashing/model/agendaTruncadoModel.dart';
-
-import '../model/agendaTruncadoModel.dart';
+import 'package:flutter_carwashing/telas/agenda/agendaEditTela.dart';
+import '../../model/agendaTruncadoModel.dart';
 
 class agendaListTela extends StatefulWidget {
   @override
@@ -12,38 +11,36 @@ class agendaListTela extends StatefulWidget {
 }
 
 class _agendaListTelaState extends State<agendaListTela> {
-  var agendaLista3 = new List<AgendaTruncadoModel>();
-
-  List<AgendaTruncadoModel> agendaTruncado = new List<AgendaTruncadoModel>();
+  List<AgendaModel> _listagem = new List<AgendaModel>();
+  AgendaModel agenda = new AgendaModel();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _buscarAgenda();
+    _getBuscarLista();
   }
 
-  _buscarAgenda() async {
-    AgendaModel agenda = new AgendaModel(2,2,"teste","tse",1);
-    agendaLista3 = await agenda.buscarTruncado() ;
-
+  void _getBuscarLista() async {
+    _listagem = await agenda.buscar() ;
     setState(() {
-      agendaLista3;
+      _listagem;
     });
   }
+
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Lista de Serviços"),
+          title: Text("Agenda do Dia"),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () => _editarObjeto(),
           child: Icon(Icons.add),
         ),
         body: ListView.builder(
-          itemCount: agendaLista3.length,
+          itemCount: _listagem.length,
           itemBuilder: (BuildContext context, int index) {
             return _cardExibirConteudo(context, index);
           },
@@ -51,6 +48,12 @@ class _agendaListTelaState extends State<agendaListTela> {
     );
   }
 
+  _editarObjeto({AgendaModel agenda}) async {
+    final retorno = await Navigator.push(context, MaterialPageRoute(builder: (context) => agendaEditTela(agenda: agenda ) ) );
+    if(retorno != null){
+      _getBuscarLista();
+    }
+  }
   _cardExibirConteudo(BuildContext context,int index){
       return Card(
         child: Column(
@@ -59,21 +62,21 @@ class _agendaListTelaState extends State<agendaListTela> {
             Row(
               children: <Widget>[
                 Icon(Icons.person),
-                Text(agendaLista3[index].cliente, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),),
+                Text(_listagem[index].cliente.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),),
               ],
             ),
             Row(
               children: <Widget>[
                 Icon(Icons.calendar_today),
-                Text(agendaLista3[index].data),
+                Text(_listagem[index].data),
                 Text(" - "),
-                Text(agendaLista3[index].hora),
+                Text(_listagem[index].hora),
               ],
             ),
             Row(
               children: <Widget>[
                 Icon(Icons.star),
-                Text(agendaLista3[index].servico),
+                Text(_listagem[index].servico.toString()),
               ],
             ),
           ],
