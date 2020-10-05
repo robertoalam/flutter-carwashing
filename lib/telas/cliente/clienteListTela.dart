@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/helper/database.dart';
 import 'package:flutter_carwashing/model/clienteModel.dart';
-import 'file:///C:/Users/49583/AndroidStudioProjects/flutter_carwashing/lib/telas/cliente/clienteEditTela.dart';
+import '../cliente/clienteEditTela.dart';
 
 class clienteListTela extends StatefulWidget {
 
@@ -12,6 +12,7 @@ class clienteListTela extends StatefulWidget {
 class _clienteListTelaState extends State<clienteListTela> {
 
   final dbHelper = DatabaseHelper.instance;
+
   List<ClienteModel> _listagem = new List<ClienteModel>();
   ClienteModel cliente = new ClienteModel();
   final TextEditingController _controllerPesquisa = new TextEditingController();

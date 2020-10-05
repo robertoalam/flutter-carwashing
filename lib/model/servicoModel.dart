@@ -3,35 +3,35 @@ import 'package:flutter_carwashing/helper/database.dart';
 class ServicoModel {
 
   int id;
-  String nome;
+  String descricao;
 
   final dbHelper = DatabaseHelper.instance;
   final String tabela = "servico";
 
-  ServicoModel({this.id, this.nome});
+  ServicoModel({this.id, this.descricao});
 
   factory ServicoModel.fromJson(Map<String, dynamic> json) {
-    return ServicoModel(id: json['id'] , nome: json['nome'] );
+    return ServicoModel(id: json['id'] , descricao: json['descricao'] );
   }
 
   ServicoModel.fromMap(Map map){
     id = map['_id'];
-    nome = map['nome'];
+    descricao = map['descricao'];
   }
 
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'nome': nome,
+      'nome': descricao,
     };
   }
   Map toJson() {
-    return {'id': id, 'nome': nome };
+    return {'id': id, 'descricao': descricao };
   }
 
   @override
   toString(){
-    return "$id - $nome";
+    return "$id - $descricao";
   }
 
   // CRUD - INICIO
@@ -42,7 +42,7 @@ class ServicoModel {
 
   Future udpate() async {
     var map = this.toMap();
-    return await dbHelper.update( tabela ,map);
+    return await dbHelper.update( tabela , " _id " ,map);
   }
 
   Future delete(int id) async {
@@ -53,12 +53,20 @@ class ServicoModel {
     final linhas = await dbHelper.queryAllRows(tabela);
     List<ServicoModel> lista = List<ServicoModel>();
     for(int i=0;i< linhas.length ; i++){
-      ServicoModel servico = ServicoModel(id : linhas[i]['_id'], nome: linhas[i]['nome']);
-      lista.add(servico);
+      ServicoModel objeto = ServicoModel(id : linhas[i]['_id'], descricao: linhas[i]['descricao']);
+      lista.add(objeto);
     }
     return lista;
   }
 
+  buscarID( int id) async {
+    var linhas = await dbHelper.Where( tabela , " _id = $id " );
+    ServicoModel objeto;
+    if(linhas.length > 0 || linhas != null){
+      objeto = new ServicoModel(id: linhas[0]['_id'], descricao: linhas[0]['descricao']);
+    }
+    return objeto;
+  }
   // CRUD - FIM
 
 

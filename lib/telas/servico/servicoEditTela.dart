@@ -78,9 +78,9 @@ class _servicoEditTelaState extends State<servicoEditTela> {
     }else{
       _controllerId.text = (_controllerId.text.toString().isNotEmpty ) ?_controllerId.text.toString() : "0" ;
       if( _controllerId.text.toString() == "0" ){
-        _servico = new ServicoModel( nome: _controllerNome.text.toString() );
+        _servico = new ServicoModel( descricao: _controllerNome.text.toString() );
       }else{
-        _servico = new ServicoModel(id: int.parse( _controllerId.text.toString() ) , nome: _controllerNome.text.toString() );
+        _servico = new ServicoModel(id: int.parse( _controllerId.text.toString() ) , descricao: _controllerNome.text.toString() );
       }
       _servico.salvar();
     }

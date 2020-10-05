@@ -76,7 +76,6 @@ class _clienteEditTelaState extends State<clienteEditTela> {
                 onPressed: () => {
                   _salvar(),
                   Navigator.pop(context, _cliente),
-                  //Navigator.of(context).pop(_cliente),
                 },
                 child: Text("SALVAR"),
               ),

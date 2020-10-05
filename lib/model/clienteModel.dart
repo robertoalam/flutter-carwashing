@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_carwashing/helper/database.dart';
 
 class ClienteModel {
@@ -38,7 +40,7 @@ class ClienteModel {
 
   Future udpate() async {
     var map = this.toMap();
-    return await dbHelper.update( tabela , map);
+    return await dbHelper.update( tabela , " _id " , map);
   }
 
   Future delete(int id) async {
@@ -55,10 +57,19 @@ class ClienteModel {
     final linhas = await dbHelper.queryAllRows( tabela );
     List<ClienteModel> lista = List<ClienteModel>();
     for(int i=0;i< linhas.length ; i++){
-      ClienteModel cliente = ClienteModel(id: linhas[i]['_id'], nome: linhas[i]['nome'], telefone: linhas[i]['telefone']);
-      lista.add(cliente);
+      ClienteModel objeto = ClienteModel(id: linhas[i]['_id'], nome: linhas[i]['nome'], telefone: linhas[i]['telefone']);
+      lista.add(objeto);
     }
     return lista;
+  }
+
+  buscarID( int id) async {
+    var linhas = await dbHelper.Where( tabela , " _id = $id " );
+    ClienteModel objeto;
+    if(linhas.length > 0 || linhas != null){
+      objeto = new ClienteModel(id: linhas[0]['_id'], nome: linhas[0]['nome'], telefone: linhas[0]['telefone']);
+    }
+    return objeto;
   }
 
   salvar(){

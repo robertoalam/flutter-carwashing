@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_carwashing/telas/cliente/clienteListTela.dart';
-import 'package:flutter_carwashing/telas/homeTela.dart';
+import 'package:flutter_carwashing/telas/agenda/agendaListTela.dart';
+import 'package:flutter_carwashing/telas/splashTela.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -13,7 +13,7 @@ void main() {
         supportedLocales: [const Locale('pt', 'BR')],
         debugShowCheckedModeBanner: false,
           //home:splashTela(),
-          home:homeTela(),
+          home:agendaListTela(),
     )
   );
 }

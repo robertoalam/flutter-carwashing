@@ -10,7 +10,9 @@ class servicoListTela extends StatefulWidget {
 }
 
 class _servicoListTelaState extends State<servicoListTela> {
-  final dbHelper = DatabaseHelper.instance;
+
+  //final dbHelper = DatabaseHelper.instance;
+
   List<ServicoModel> _listagem = new List<ServicoModel>();
   ServicoModel _servico = new ServicoModel();
 
@@ -76,7 +78,7 @@ class _servicoListTelaState extends State<servicoListTela> {
                             children: [
                               Text(_listagem[index].id.toString()),
                               Text(" - "),
-                              Text(_listagem[index].nome ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
+                              Text(_listagem[index].descricao ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
                             ],
                           ),
                         ],

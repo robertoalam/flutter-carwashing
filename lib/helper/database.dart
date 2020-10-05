@@ -8,11 +8,6 @@ class DatabaseHelper {
   static final _databaseName = "CarWashing.db";
   static final _databaseVersion = 1;
 
-  static final table = 'cliente';
-
-  static final columnId = '_id';
-  static final columnName = 'name';
-  static final columnAge = 'age';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -39,10 +34,13 @@ class DatabaseHelper {
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute(''' CREATE TABLE IF NOT EXISTS cliente ( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, telefone TEXT NOT NULL ); ''');
-    await db.execute(''' CREATE TABLE IF NOT EXISTS servico ( _id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL); ''');
-    await db.execute(''' CREATE TABLE IF NOT EXISTS agenda ( _id INTEGER PRIMARY KEY AUTOINCREMENT, cliente INT NOT NULL, dt_servico VARCHAR(10) NOT NULL , hr_servico VARCHAR(5) NOT NULL , cd_servico INT NOT NULL , dt_create TEXT DEFAULT CURRENT_TIMESTAMP); ''');
+    await db.execute(''' CREATE TABLE IF NOT EXISTS servico ( _id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT NOT NULL); ''');
+    await db.execute(''' CREATE TABLE IF NOT EXISTS agenda ( _id INTEGER PRIMARY KEY AUTOINCREMENT, id_cliente INT NOT NULL, id_servico INT NOT NULL , dt_servico VARCHAR(10) NOT NULL , id_horario INT NOT NULL , dt_create TEXT DEFAULT CURRENT_TIMESTAMP); ''');
+    await db.execute(''' CREATE TABLE IF NOT EXISTS horario ( _id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT NOT NULL, st_flag INTEGER ); ''');
     popularTabelaCliente(db);
     popularTabelaServico(db);
+    popularTabelaHorario(db);
+    //popularTabelaAgenda(db);
   }
 
   popularTabelaCliente(db){
@@ -55,14 +53,48 @@ class DatabaseHelper {
   }
 
   popularTabelaServico(db){
-    db.execute(''' INSERT INTO servico (nome) VALUES ('Lavagem Simples'); ''');
-    db.execute(''' INSERT INTO servico (nome) VALUES ('Lavagem Completa c/cera'); ''');
-    db.execute(''' INSERT INTO servico (nome) VALUES ('Lavagem Completa s/cera'); ''');
+    db.execute(''' INSERT INTO servico (descricao) VALUES ('Lavagem Simples'); ''');
+    db.execute(''' INSERT INTO servico (descricao) VALUES ('Lavagem Completa c/cera'); ''');
+    db.execute(''' INSERT INTO servico (descricao) VALUES ('Lavagem Completa s/cera'); ''');
+    return 1;
+  }
+
+  popularTabelaHorario(db){
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('01:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('02:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('03:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('04:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('05:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('06:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('07:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('08:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('09:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('10:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('11:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('12:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('13:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('14:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('15:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('16:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('17:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('18:00',1); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('19:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('20:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('21:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('22:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('23:00',0); ''');
+    db.execute(''' INSERT INTO horario (descricao,st_flag) VALUES ('00:00',0); ''');
+    return 1;
+  }
+
+  popularTabelaAgenda(db){
+    db.execute(''' INSERT INTO agenda (id_cliente , id_servico , dt_servico , id_horario ) VALUES ( 1,1,'05/10/2020',13 );  ''');
+    db.execute(''' INSERT INTO agenda (id_cliente , id_servico , dt_servico , id_horario ) VALUES ( 2,1,'05/10/2020',14 );  ''');
+    db.execute(''' INSERT INTO agenda (id_cliente , id_servico , dt_servico , id_horario ) VALUES ( 3,1,'06/10/2020',13 );  ''');
     return 1;
   }
 
   // Helper methods
-
   // Inserts a row in the database where each key in the Map is a column name
   // and the value is the column value. The return value is the id of the
   // inserted row.
@@ -71,10 +103,14 @@ class DatabaseHelper {
     return await db.insert(tabela, row);
   }
 
-  Future<int> executar(String comando) async {
+  executar(String comando) async {
     Database db = await instance.database;
-    await db.execute(comando);
-    return 1;
+    return await db.execute(comando);
+  }
+
+  Where(tabela , where) async {
+    Database db = await instance.database;
+    return await db.query(tabela , where: where);
   }
 
   // All of the rows are returned as a list of maps, where each map is
@@ -99,16 +135,17 @@ class DatabaseHelper {
 
   // We are assuming here that the id column in the map is set. The other
   // column values will be used to update the row.
-  Future<int> update(tabela , Map<String, dynamic> row) async {
+  Future<int> update(tabela , primaryKey , Map<String, dynamic> row) async {
     Database db = await instance.database;
-    int id = row[columnId];
-    return await db.update(tabela, row, where: '$columnId = ?', whereArgs: [id]);
+    String primaryValue = row['_id'].toString() ;
+    return await db.update(tabela, row, where:" $primaryKey = $primaryValue ");
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(tabela,int id) async {
     Database db = await instance.database;
-    return await db.delete(tabela, where: '$columnId = ?', whereArgs: [id]);
+    // return await db.delete(tabela, where: '$columnId = ?', whereArgs: [id]);
+    return await db.delete(tabela, where: '_id = ?', whereArgs: ['_id']);
   }
 }
