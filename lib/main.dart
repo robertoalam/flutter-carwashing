@@ -12,8 +12,8 @@ void main() {
         ],
         supportedLocales: [const Locale('pt', 'BR')],
         debugShowCheckedModeBanner: false,
-          //home:splashTela(),
-          home:agendaListTela(),
+          home:splashTela(),
+          //home:agendaListTela(),
     )
   );
 }

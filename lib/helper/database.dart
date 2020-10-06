@@ -8,7 +8,6 @@ class DatabaseHelper {
   static final _databaseName = "CarWashing.db";
   static final _databaseVersion = 1;
 
-
   // make this a singleton class
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();

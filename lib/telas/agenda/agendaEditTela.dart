@@ -127,7 +127,7 @@ class _agendaEditTelaState extends State<agendaEditTela> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.calendar_today_sharp,),
+                    Icon(Icons.calendar_today,),
                     Text("Data:"),
                   ],
                 ),
@@ -165,7 +165,7 @@ class _agendaEditTelaState extends State<agendaEditTela> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.lock_clock,),
+                    Icon(Icons.watch_later,),
                     Text("Horario:"),
                   ],
                 ),
@@ -215,7 +215,7 @@ class _agendaEditTelaState extends State<agendaEditTela> {
                           padding:EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.grey,
-                              borderRadius: BorderRadius.circular(10)
+                              borderRadius: BorderRadius.circular(10) ,
                           ),
                           child: new DropdownButton(
                             items: _dropDownMenuItemsServicos,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carwashing/telas/agenda/agendaListTela.dart';
 import 'package:flutter_carwashing/telas/cliente/clienteListTela.dart';
+import 'package:flutter_carwashing/telas/horario/horarioListTela.dart';
 import 'package:flutter_carwashing/telas/servico/servicoListTela.dart';
 
 class homeTela extends StatelessWidget {
@@ -48,6 +49,17 @@ class homeTela extends StatelessWidget {
                               child: RaisedButton(
                                   onPressed: () => _navegarTela(context, servicoListTela()),
                                   child: Text("Lista de Serviços"),
+                              ),
+                          ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: ButtonTheme(
+                              minWidth: 200.0,
+                              height: 75.0,
+                              child: RaisedButton(
+                                  onPressed: () => _navegarTela(context, horarioListTela()),
+                                  child: Text("Lista de Horarios"),
                               ),
                           ),
                       ),

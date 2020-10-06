@@ -11,8 +11,6 @@ class servicoListTela extends StatefulWidget {
 
 class _servicoListTelaState extends State<servicoListTela> {
 
-  //final dbHelper = DatabaseHelper.instance;
-
   List<ServicoModel> _listagem = new List<ServicoModel>();
   ServicoModel _servico = new ServicoModel();
 
