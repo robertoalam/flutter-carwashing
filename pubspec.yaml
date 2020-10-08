@@ -28,9 +28,18 @@ dependencies:
   sqflite: ^1.2.0
   path_provider: ^1.5.1
   datetime_picker_formfield: ^1.0.0
+
+  # formatacao internacional
   intl: ^0.16.0
   date_format: ^1.0.8
+
+  # mascara em campos
   brasil_fields: ^0.4.0
+
+  #internet
+  connectivity: ^0.4.3+1
+  #provider: ^4.0.1
+  provider: ^2.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
