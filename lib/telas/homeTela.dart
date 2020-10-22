@@ -15,7 +15,6 @@ class homeTela extends StatelessWidget {
               title: Text('Home'),
           ),
           body: NetworkSensitive(
-
             child: SingleChildScrollView(
                 padding: EdgeInsets.all(10.0),
                 child: Column(
