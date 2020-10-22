@@ -9,10 +9,10 @@ import 'package:flutter_carwashing/widgets/network_sensitivity.dart';
 class homeTela extends StatelessWidget {
 
     final List<Map<String,dynamic>> _listagem = [
-        {'label':'Agenda','tela':agendaListTela(),'imagem':'agenda.jpg'},
-        {'label':'Lista de Clientes','tela':clienteListTela(),'imagem':'clientes.jpg'},
-        {'label':'Lista de Serviços','tela':servicoListTela(),'imagem':'servicos.jpg'},
-        {'label':'Lista de Horarios','tela':horarioListTela(),'imagem':'horarios.jpg'},
+        {'label':'Agenda','tela':agendaListTela(),'imagem':'images/agenda.jpg'},
+        {'label':'Lista de Clientes','tela':clienteListTela(),'imagem':'images/clientes.jpg'},
+        {'label':'Lista de Serviços','tela':servicoListTela(),'imagem':'images/servicos.jpg'},
+        {'label':'Lista de Horarios','tela':horarioListTela(),'imagem':'images/horarios.jpg'},
     ];
 
   @override
@@ -23,26 +23,55 @@ class homeTela extends StatelessWidget {
               title: Text('Home'),
           ),
           body: NetworkSensitive(
-            child: SingleChildScrollView(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    mainAxisSize: MainAxisSize.max,
-                    children: _listagem.map( ( item ){
-                        return Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: ButtonTheme(
-                                minWidth: 200.0,
-                                height: 75.0,
-                                child: RaisedButton(
-                                    color: Colors.blue,
-                                    onPressed: () => _navegarTela(context, item['tela'] ),
-                                    child: Text( item['label']),
-                                ),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemCount: _listagem.length,
+              itemBuilder: (context, index) {
+                return
+                  Container(
+                    height: 200,
+                    width: 200,
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      semanticContainer: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Stack(
+                        children: [
+                          Image.asset( _listagem[index]['imagem']  ),
+                          Center(
+                            child: Text(
+                              _listagem[index]['label'] ,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold ,
+                                  color: Colors.white,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 3.0,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                    Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 8.0,
+                                      color: Color.fromARGB(125, 0, 0, 255),
+                                    ),
+                                  ],
+                                  fontSize: 20 ,
+                              ),
                             ),
-                        );
-                    }).toList(),
-                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+
+              },
             ),
           ),
       );
