@@ -8,8 +8,16 @@ import 'package:flutter_carwashing/widgets/network_sensitivity.dart';
 
 class homeTela extends StatelessWidget {
 
+    final List<Map<String,dynamic>> _listagem = [
+        {'label':'Agenda','tela':agendaListTela(),'imagem':'agenda.jpg'},
+        {'label':'Lista de Clientes','tela':clienteListTela(),'imagem':'clientes.jpg'},
+        {'label':'Lista de Serviços','tela':servicoListTela(),'imagem':'servicos.jpg'},
+        {'label':'Lista de Horarios','tela':horarioListTela(),'imagem':'horarios.jpg'},
+    ];
+
   @override
   Widget build(BuildContext context) {
+      print(_listagem.length);
       return Scaffold(
           appBar: AppBar(
               title: Text('Home'),
@@ -20,64 +28,20 @@ class homeTela extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     mainAxisSize: MainAxisSize.max,
-                    children: [
-                        Padding(
+                    children: _listagem.map( ( item ){
+                        return Padding(
                             padding: EdgeInsets.all(10.0),
                             child: ButtonTheme(
                                 minWidth: 200.0,
                                 height: 75.0,
                                 child: RaisedButton(
                                     color: Colors.blue,
-                                    onPressed: () => _navegarTela(context, agendaListTela()),
-                                    child: Text("Agenda"),
+                                    onPressed: () => _navegarTela(context, item['tela'] ),
+                                    child: Text( item['label']),
                                 ),
                             ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: ButtonTheme(
-                                minWidth: 200.0,
-                                height: 75.0,
-                                child: RaisedButton(
-                                    onPressed: () => _navegarTela(context, clienteListTela()),
-                                    child: Text("Lista de Clientes"),
-                                ),
-                            ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: ButtonTheme(
-                                minWidth: 200.0,
-                                height: 75.0,
-                                child: RaisedButton(
-                                    onPressed: () => _navegarTela(context, servicoListTela()),
-                                    child: Text("Lista de Serviços"),
-                                ),
-                            ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: ButtonTheme(
-                                minWidth: 200.0,
-                                height: 75.0,
-                                child: RaisedButton(
-                                    onPressed: () => _navegarTela(context, horarioListTela()),
-                                    child: Text("Lista de Horarios"),
-                                ),
-                            ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: ButtonTheme(
-                                minWidth: 200.0,
-                                height: 75.0,
-                                child: RaisedButton(
-                                    onPressed: () => _teste(context),
-                                    child: Text("TESTE"),
-                                ),
-                            ),
-                        ),
-                    ],
+                        );
+                    }).toList(),
                 ),
             ),
           ),
