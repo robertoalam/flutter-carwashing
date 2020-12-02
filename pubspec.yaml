@@ -25,7 +25,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  sqflite: ^1.2.0
+  sqflite: ^1.3.1
   path_provider: ^1.5.1
   datetime_picker_formfield: ^1.0.0
 
@@ -67,6 +67,7 @@ flutter:
     - images/clientes.jpg
     - images/horarios.jpg
     - images/servicos.jpg
+    - images/promocao.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

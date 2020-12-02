@@ -63,6 +63,11 @@ class ClienteModel {
     return lista;
   }
 
+  fetchById(int id) async {
+    var linha = await dbHelper.query("cliente", where: "_id = ?", whereArgs: [id]);
+    return linha.isNotEmpty ? ClienteModel.fromMap(linha.first) : Null ;
+  }
+
   buscarID( int id) async {
     var linhas = await dbHelper.Where( tabela , " _id = $id " );
     ClienteModel objeto;

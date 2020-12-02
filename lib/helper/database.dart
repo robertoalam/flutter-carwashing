@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:date_format/date_format.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -101,7 +102,21 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.insert(tabela, row);
   }
-
+  query(String table,{
+    bool distinct,
+      List<String> columns,
+      String where,
+      List<dynamic> whereArgs,
+      String groupBy,
+      String having,
+      String orderBy,
+      int limit,
+      int offset
+    }
+  ) async {
+    Database db = await instance.database;
+    return db.query(table,columns: columns,where: where,whereArgs: whereArgs,groupBy: groupBy,orderBy: orderBy);
+  }
   executar(String comando) async {
     Database db = await instance.database;
     return await db.execute(comando);

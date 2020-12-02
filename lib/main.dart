@@ -16,8 +16,6 @@ class MyApp extends StatelessWidget {
     return
       StreamProvider<ConnectivityStatus>(
         builder: (context) => ConnectivityService().connectionStatusController,
-        // child: ChangeNotifierProvider(
-        //   builder: ( context ) => InternetService(context),
           child: MaterialApp(
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
@@ -28,7 +26,6 @@ class MyApp extends StatelessWidget {
             home:homeTela(),
             //home:agendaListTela(),
           ),
-        //)
       );
   }
 }

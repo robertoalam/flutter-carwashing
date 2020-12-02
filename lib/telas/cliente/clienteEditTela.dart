@@ -28,7 +28,9 @@ class _clienteEditTelaState extends State<clienteEditTela> {
     super.initState();
   }
 
-  _carregarDadosTela( objeto ){
+  _carregarDadosTela( objeto ) async {
+    // var retorno = await _cliente.fetchById(objeto.id);
+
     _clienteId.text =  objeto.id.toString();
     _clienteNome.text = objeto.nome;
     _clienteTelefone.text = objeto.telefone.toString();
